@@ -1,24 +1,13 @@
-package edu.ktu.ds.lab3.utils;
+package edu.ktu.ds.lab3.pilinkus;
+
+import edu.ktu.ds.lab3.utils.EvaluableMap;
+import edu.ktu.ds.lab3.utils.HashType;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Porų ("maping'ų") raktas-reikšmė objektų kolekcijos - atvaizdžio realizacija
- * maišos lentele, kolizijas sprendžiant atskirų grandinėlių (angl. separate
- * chaining) metodu. Neužmirškite, jei poros raktas - nuosavos klasės objektas,
- * pvz. klasės Car objektas, klasėje būtina perdengti metodus equals(Object o)
- * ir hashCode().
- *
- * @param <K> atvaizdžio raktas
- * @param <V> atvaizdžio reikšmė
- *
- * @Užduotis Peržiūrėkite ir išsiaiškinkite pateiktus metodus.
- *
- * @author darius.matulis@ktu.lt
- */
-public class HashMap<K, V> implements EvaluableMap<K, V> {
+public class HashMapOA<K, V> implements EvaluableMap<K, V> {
 
     public static final int DEFAULT_INITIAL_CAPACITY = 16;
     public static final float DEFAULT_LOAD_FACTOR = 0.75f;
@@ -36,37 +25,37 @@ public class HashMap<K, V> implements EvaluableMap<K, V> {
     //  Maišos lentelės įvertinimo parametrai
     //--------------------------------------------------------------------------
     // Maksimalus suformuotos maišos lentelės grandinėlės ilgis
-    protected int maxChainSize = 0;
+    protected int maxChainSize = 1;
     // Permaišymų kiekis
     protected int rehashesCounter = 0;
     // Paskutinės patalpintos poros grandinėlės indeksas maišos lentelėje
     protected int lastUpdatedChain = 0;
-    // Lentelės grandinėlių skaičius     
+    // Lentelės grandinėlių skaičius
     protected int chainsCounter = 0;
     // Einamas poros indeksas maišos lentelėje
     protected int index = 0;
 
-    /* Klasėje sukurti 4 perkloti konstruktoriai, nustatantys atskirus maišos 
-     * lentelės parametrus. Jei kuris nors parametras nėra nustatomas - 
+    /* Klasėje sukurti 4 perkloti konstruktoriai, nustatantys atskirus maišos
+     * lentelės parametrus. Jei kuris nors parametras nėra nustatomas -
      * priskiriama standartinė reikšmė.
      */
-    public HashMap() {
+    public HashMapOA() {
         this(DEFAULT_HASH_TYPE);
     }
 
-    public HashMap(HashType ht) {
+    public HashMapOA(HashType ht) {
         this(DEFAULT_INITIAL_CAPACITY, ht);
     }
 
-    public HashMap(int initialCapacity, HashType ht) {
+    public HashMapOA(int initialCapacity, HashType ht) {
         this(initialCapacity, DEFAULT_LOAD_FACTOR, ht);
     }
 
-    public HashMap(float loadFactor, HashType ht) {
+    public HashMapOA(float loadFactor, HashType ht) {
         this(DEFAULT_INITIAL_CAPACITY, loadFactor, ht);
     }
 
-    public HashMap(int initialCapacity, float loadFactor, HashType ht) {
+    public HashMapOA(int initialCapacity, float loadFactor, HashType ht) {
         if (initialCapacity <= 0) {
             throw new IllegalArgumentException("Illegal initial capacity: " + initialCapacity);
         }
@@ -84,11 +73,9 @@ public class HashMap<K, V> implements EvaluableMap<K, V> {
         if (value == null)
             return false;
         for (Node<K, V> n : table) {
-            for(Node<K, V> nn = n; nn != null; nn = nn.next) {
-                if (nn.value.equals(value)){
+                if (n != null && n.value.equals(value)){
                     return true;
                 }
-            }
         }
         return false;
     }
@@ -177,25 +164,29 @@ public class HashMap<K, V> implements EvaluableMap<K, V> {
         if (key == null || value == null) {
             throw new IllegalArgumentException("Key or value is null in put(Key key, Value value)");
         }
-        index = hash(key, ht);
-        if (table[index] == null) {
-            chainsCounter++;
-        }
+        int temp = hash(key);
+        int i = temp;
+        do{
+            if(table[i] == null){
+                table[i] = new Node<>(key, value, table[i]);;
+                size++;
+                chainsCounter++;
+                index = i;
 
-        Node<K, V> node = getInChain(key, table[index]);
-        if (node == null) {
-            table[index] = new Node<>(key, value, table[index]);
-            size++;
-
-            if (size > table.length * loadFactor) {
-                rehash(table[index]);
-            } else {
-                lastUpdatedChain = index;
+                if (size > table.length * loadFactor) {
+                    rehash(table[index]);
+                } else {
+                    lastUpdatedChain = index;
+                }
+                return value;
             }
-        } else {
-            node.value = value;
-            lastUpdatedChain = index;
-        }
+            if (table[i].key.equals(key))
+            {
+                table[i].value = value;
+                return value;
+            }
+            i = (i + 1) % table.length;
+        } while (i != temp);
 
         return value;
     }
@@ -212,10 +203,13 @@ public class HashMap<K, V> implements EvaluableMap<K, V> {
         if (key == null) {
             throw new IllegalArgumentException("Key is null in get(Key key)");
         }
-
-        index = hash(key, ht);
-        Node<K, V> node = getInChain(key, table[index]);
-        return (node != null) ? node.value : null;
+        index = hash(key);
+        while(table[index] != null) {
+            if(table[index].key.equals(key))
+                return table[index].value;
+            index = (index + 1) % table.length;
+        }
+        return null;
     }
 
     /**
@@ -229,26 +223,26 @@ public class HashMap<K, V> implements EvaluableMap<K, V> {
         if (key == null) {
             throw new IllegalArgumentException("Key is null in remove(Key key)");
         }
+        /** find position key and delete **/
+        index = hash(key);
+        while (!key.equals(table[index].key))
+            index = (index + 1) % table.length;
+        V removed = table[index].value;
+        table[index].key = null;
+        table[index].value = null;
 
-        index = hash(key, ht);
-        Node<K, V> previous = null;
-        for (Node<K, V> n = table[index]; n != null; n = n.next) {
-            if ((n.key).equals(key)) {
-                if (previous == null) {
-                    table[index] = n.next;
-                } else {
-                    previous.next = n.next;
-                }
-                size--;
-
-                if (table[index] == null) {
-                    chainsCounter--;
-                }
-                return n.value;
-            }
-            previous = n;
+        /** rehash all keys **/
+        for (index = (index + 1) % table.length; table[index].key != null; index = (index + 1) % table.length)
+        {
+            K tmp1 = table[index].key;
+            V tmp2 = table[index].value;
+            table[index].key = null;
+            table[index].value = null;
+            size--;
+            put(tmp1, tmp2);
         }
-        return null;
+        size--;
+        return removed;
     }
 
     /**
@@ -257,7 +251,7 @@ public class HashMap<K, V> implements EvaluableMap<K, V> {
      * @param node
      */
     private void rehash(Node<K, V> node) {
-        HashMap<K, V> newMap = new HashMap<>(table.length * 2, loadFactor, ht);
+        HashMapOA<K, V> newMap = new HashMapOA<>(table.length * 2, loadFactor, ht);
         for (int i = 0; i < table.length; i++) {
             while (table[i] != null) {
                 if (table[i].equals(node)) {
@@ -273,32 +267,10 @@ public class HashMap<K, V> implements EvaluableMap<K, V> {
         rehashesCounter++;
     }
 
-    /**
-     * Maišos funkcijos skaičiavimas: pagal rakto maišos kodą apskaičiuojamas
-     * atvaizdžio poros indeksas maišos lentelės masyve
-     *
-     * @param key
-     * @param hashType
-     * @return
-     */
-    private int hash(K key, HashType hashType) {
+
+    private int hash(K key) {
         int h = key.hashCode();
-        switch (hashType) {
-            case DIVISION:
-                return Math.abs(h) % table.length;
-            case MULTIPLICATION:
-                double k = (Math.sqrt(5) - 1) / 2;
-                return (int) (((k * Math.abs(h)) % 1) * table.length);
-            case JCF7:
-                h ^= (h >>> 20) ^ (h >>> 12);
-                h = h ^ (h >>> 7) ^ (h >>> 4);
-                return h & (table.length - 1);
-            case JCF8:
-                h = h ^ (h >>> 16);
-                return h & (table.length - 1);
-            default:
-                return Math.abs(h) % table.length;
-        }
+        return Math.abs(h) % table.length;
     }
 
     /**
@@ -405,12 +377,16 @@ public class HashMap<K, V> implements EvaluableMap<K, V> {
 
     protected static class Node<K, V> {
 
-        // Raktas        
+        // Raktas
         protected K key;
         // Reikšmė
         protected V value;
         // Rodyklė į sekantį grandinėlės mazgą
         protected Node<K, V> next;
+
+        public Node<K, V> getNext() {
+            return next;
+        }
 
         protected Node() {
         }

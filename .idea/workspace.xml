@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2cb45386-d702-47d8-b801-4415586fd01d" name="Default Changelist" comment="" />
+    <list default="true" id="2cb45386-d702-47d8-b801-4415586fd01d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/L3_IFF8-1_Pilinkus_Martynas.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/pilinkus/Benchmark.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/pilinkus/HashMapOA.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/pilinkus/House.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/pilinkus/HouseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/pilinkus/ManualTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/utils/ParsableHashMapOA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/demo/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/demo/Car.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/gui/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/gui/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/gui/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/gui/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/utils/HashMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/ktu/ds/lab3/utils/HashMap.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,18 +26,41 @@
   <component name="FavoritesManager">
     <favorites_list name="Lab3_MaisosLenteles_Intellij" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="ProjectId" id="1RsjMKoQ4lZ6sLjNVGXD9jpyKW7" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Lab3_MaisosLenteles_class_diagram.png" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Studijoms\OneDrive - Kaunas University of Technology\Duomenu_strukturos\Lab3_MaisosLenteles_Intellij\src\edu\ktu\ds\lab3\pilinkus" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="edu.ktu.ds.lab3.utils" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="edu.ktu.ds.lab3.pilinkus" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -36,7 +74,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.DemoExecution">
+  <component name="RunManager" selected="Application.Benchmark">
+    <configuration name="Benchmark" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.ktu.ds.lab3.pilinkus.Benchmark" />
+      <module name="Lab3_MaisosLenteles_Intellij" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ktu.ds.lab3.pilinkus.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DemoExecution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.ktu.ds.lab3.demo.DemoExecution" />
       <module name="Lab3_MaisosLenteles_Intellij" />
@@ -50,12 +101,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ManualTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.ktu.ds.lab3.demo.ManualTest" />
+    <configuration name="HouseTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.ktu.ds.lab3.pilinkus.HouseTest" />
       <module name="Lab3_MaisosLenteles_Intellij" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ktu.ds.lab3.demo.*" />
+          <option name="PATTERN" value="edu.ktu.ds.lab3.pilinkus.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -63,12 +114,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SimpleBenchmark" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.ktu.ds.lab3.demo.SimpleBenchmark" />
+    <configuration name="ManualTest (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.ktu.ds.lab3.pilinkus.ManualTest" />
       <module name="Lab3_MaisosLenteles_Intellij" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.ktu.ds.lab3.demo.*" />
+          <option name="PATTERN" value="edu.ktu.ds.lab3.pilinkus.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SimpleBenchmark (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.ktu.ds.lab3.pilinkus.SimpleBenchmark" />
+      <module name="Lab3_MaisosLenteles_Intellij" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.ktu.ds.lab3.pilinkus.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -78,9 +142,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Benchmark" />
         <item itemvalue="Application.DemoExecution" />
-        <item itemvalue="Application.SimpleBenchmark" />
-        <item itemvalue="Application.ManualTest" />
+        <item itemvalue="Application.ManualTest (1)" />
+        <item itemvalue="Application.SimpleBenchmark (1)" />
+        <item itemvalue="Application.HouseTest" />
       </list>
     </recent_temporary>
   </component>
@@ -94,7 +160,46 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1570462648174</updated>
+      <workItem from="1574061983957" duration="2057000" />
+      <workItem from="1574586307137" duration="23475000" />
+      <workItem from="1574665421994" duration="4216000" />
+      <workItem from="1575711371345" duration="5107000" />
+      <workItem from="1575716568508" duration="255000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Lab3 All work." />
+    <option name="LAST_COMMIT_MESSAGE" value="Lab3 All work." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/edu/ktu/ds/lab3/demo/Car.java</url>
+          <line>129</line>
+          <properties class="edu.ktu.ds.lab3.demo.Car" method="equals">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

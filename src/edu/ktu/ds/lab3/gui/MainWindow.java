@@ -5,6 +5,7 @@ import edu.ktu.ds.lab3.demo.CarsGenerator;
 import edu.ktu.ds.lab3.demo.SimpleBenchmark;
 import edu.ktu.ds.lab3.utils.HashType;
 import edu.ktu.ds.lab3.utils.ParsableHashMap;
+import edu.ktu.ds.lab3.utils.ParsableHashMapOA;
 import edu.ktu.ds.lab3.utils.ParsableMap;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -80,7 +81,7 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
     private MainWindowMenu mainWindowMenu;
     private final Stage stage;
 
-    private ParsableMap<String, Car> map;
+    private ParsableHashMapOA<String, Car> map;
     private int sizeOfInitialSubSet, sizeOfGenSet, colWidth, initialCapacity;
     private float loadFactor;
     private HashType ht = HashType.DIVISION;
@@ -116,7 +117,10 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
                     MESSAGES.getString("button1"),
                     MESSAGES.getString("button2"),
                     MESSAGES.getString("button3"),
-                    MESSAGES.getString("button4")}, 1, 4);
+                    MESSAGES.getString("button4"),
+                    MESSAGES.getString("button5"),
+                    MESSAGES.getString("button6"),
+                    MESSAGES.getString("button7")}, 1, 7);
         paneButtons.getButtons().forEach((btn) -> btn.setOnAction(this));
         IntStream.of(1, 3).forEach(p -> paneButtons.getButtons().get(p).setDisable(true));
 
@@ -251,7 +255,7 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         paneRight.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         paneButtons.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
         taInput.setFont(Font.font("Monospaced", 12));
-        taInput.setDisable(true);
+        taInput.setDisable(false);
         taEvents.setEditable(false);
         taEvents.setFont(Font.font("Monospaced", 12));
         // Antra parametrų lentelė (gelsva) bus neredaguojama
@@ -297,13 +301,51 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         } else if (source.equals(paneButtons.getButtons().get(2))) {
             mapEfficiency();
         } else if (source.equals(paneButtons.getButtons().get(3))) {
-            KsGui.ounerr(taEvents, MESSAGES.getString("notImplemented"));
+            mapContainsValue();
+        } else if (source.equals(paneButtons.getButtons().get(4))) {
+            mapPutIfAbsent();
+        } else if (source.equals(paneButtons.getButtons().get(5))) {
+            mapNumberOfEmpties();
+        } else if (source.equals(paneButtons.getButtons().get(6))) {
+            mapContainsKey();
         }
+    }
+
+    private void mapContainsKey() {
+        Car car = carsGenerator.getCar();
+        boolean contains = map.contains(taInput.getText());
+        KsGui.oun(taEvents, contains , MESSAGES.getString(contains?"mapContainsValue":"mapNotContainsValue"));
+    }
+
+    private void mapContainsValue() {
+        Car car = new Car(taInput.getText());
+        boolean contains = map.containsValue(car);
+        KsGui.oun(taEvents, car , MESSAGES.getString(contains?"mapContainsValue":"mapNotContainsValue"));
+    }
+
+    private void mapPutIfAbsent() {
+        String id = taInput.getText().substring(0, 7);
+        Car car = new Car(taInput.getText().substring(8));
+        Car existingCar = map.putIfAbsent(id, car);
+        if(existingCar == null){
+            table.formTable(map.getMaxChainSize() * 2 + 1, colWidth);
+            String[][] modelList = map.getModelList(paneParam1.getTfOfTable().get(5).getText());
+            table.setItems(FXCollections.observableArrayList(modelList));
+            updateHashtableParameters(true);
+            KsGui.oun(taEvents, car, MESSAGES.getString("mapPutSucessful"));
+        }
+        else {
+            KsGui.oun(taEvents, existingCar, MESSAGES.getString("mapPutFailed"));
+        }
+    }
+
+    private void mapNumberOfEmpties() {
+        KsGui.oun(taEvents, map.numberOfEmpties(), MESSAGES.getString("mapEmpties"));
     }
 
     private void mapGeneration(String filePath) {
         // Išjungiami 2 ir 4 mygtukai
-        IntStream.of(1, 3).forEach(p -> paneButtons.getButtons().get(p).setDisable(true));
+        IntStream.of(1, 3, 4, 5).forEach(p -> paneButtons.getButtons().get(p).setDisable(true));
         // Duomenų nuskaitymas iš parametrų lentelės (žalios)
         readMapParameters();
         // Sukuriamas tuščias atvaizdis priklausomai nuo kolizijų tipo
@@ -334,7 +376,7 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
         // Atnaujinamai maišos lentelės parametrai (geltona lentelė)
         updateHashtableParameters(false);
         // Įjungiami 2 ir 4 mygtukai
-        IntStream.of(1, 3).forEach(p -> paneButtons.getButtons().get(p).setDisable(false));
+        IntStream.of(1, 3, 4, 5).forEach(p -> paneButtons.getButtons().get(p).setDisable(false));
     }
 
     private void mapPut() {
@@ -413,7 +455,7 @@ public class MainWindow extends BorderPane implements EventHandler<ActionEvent> 
     private void createMap() {
         switch (cmbCollisionTypes.getSelectionModel().getSelectedIndex()) {
             case 0:
-                map = new ParsableHashMap<>(String::new, Car::new, initialCapacity, loadFactor, ht);
+                map = new ParsableHashMapOA<>(String::new, Car::new, initialCapacity, loadFactor, ht);
                 break;
             // ...
             // Programuojant kitus kolizijų sprendimo metodus reikia papildyti switch sakinį

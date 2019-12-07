@@ -187,7 +187,7 @@ public final class Car implements Parsable<Car> {
                     MODELS[ma][mo],
                     1990 + RANDOM.nextInt(20),// metai tarp 1990 ir 2009
                     6000 + RANDOM.nextInt(222000),// rida tarp 6000 ir 228000
-                    800 + RANDOM.nextDouble() * 88000);// kaina tarp 800 ir 88800
+                    Math.round(800 + RANDOM.nextDouble() * 88000));// kaina tarp 800 ir 88800
         }
 
         public Builder year(int year) {
